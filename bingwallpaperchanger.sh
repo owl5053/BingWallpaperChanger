@@ -15,7 +15,10 @@ curl -s -o $pathimg $url
 
 #if detected Mac OS
 if [[ "$OSTYPE" == "darwin"* ]]; then
-        osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'$pathimg'"'
+	# variant 1 to set wallpaper on MAC
+        # osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'$pathimg'"'
+	# variant 2 to set wallpaper on MAC
+	sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '$pathimg'" && killall Dock
  else
 #if not Mac OS
 if [ "$XDG_CURRENT_DESKTOP" = "XFCE" ]
